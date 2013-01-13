@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test Appfog</title>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+	function tokenize() {
+
+		var sourcecode = $('#snippet').val();
+		if (sourcecode.length == 0) {
+			$('#hint').text("Can't be empty").css({
+				"color" : "red"
+			});
+			return;
+		}
+
+		$.ajax({
+			type : 'post',
+			url : 'tokenize',
+			data : {
+				'code' : sourcecode
+			},
+			dataType : 'json',
+			error : function(e, xhr) {
+				$('.hint').html("Tokenize error.");
+				$('.hint').css("color", "red");
+			},
+			success : function(data) {
+				$('#result1').html(data.jsonArray[0].result1);
+				$('#result2').html(data.jsonArray[0].result2);
+			}
+		});
+		return 0;
+	}
+</script>
+</head>
+<body>
+	<h1>A Java code tokenizer.</h1>
+
+<p>To check if a file is copied from another, one approach is to compare the hash code of the files. However, sometimes people modified the original file when they copy it. For example, they change the parameter names, change the format of files, or modify comments.</p>
+<p>In such cases, It is necessary to tokenize the files before do the hash code comparison. This tool can help us with the java file tokenization.</p>
+
+	<div id="searchfield" style="width: 100%; float: left;">
+
+		<textarea id="snippet" name="snippet" rows="14" cols="100"
+			style="width: 100%; overflow: auto;"
+			placeholder="//input source code of a java file here."></textarea>
+	</div>
+	<div>
+		<button onclick="tokenize();">tokenize</button>
+		<div id="hint"></div>
+	</div>
+	<fieldset><legend> Tokenized file </legend>
+	<div id="result1" style="width: 100%; float: left;" ></div>
+	</fieldset>
+	<fieldset><legend> Hashcode </legend>
+	<div id="result2" style="width: 100%; float: left;"></div>
+	</fieldset>
+
+</body>
+</html>
