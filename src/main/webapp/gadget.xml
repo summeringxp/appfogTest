@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+<ModulePrefs title="sample application"></ModulePrefs>
+<Content view="touch" type="url" href="http://summeringxp.ap01.aws.af.cm/index.html"/>
+</Module>
